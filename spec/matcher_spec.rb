@@ -9,4 +9,8 @@ describe "ArtifactMatcher::Default" do
   it "a:b:c:v should match *:*:*:*" do
     @matcher.match('a:b:c:v', '*:*:*:*').should be_true
   end
+
+  it "a:b:c:v should not match b:*:*:*" do
+    @matcher.match('a:b:c:v', 'b:*:*:*').should be_false
+  end
 end
