@@ -17,7 +17,6 @@ describe "Layout.rule" do
   end
 
   it "should have default empty rules" do
-    lambda
     @layout.rules.should == []
   end
 end
@@ -31,4 +30,7 @@ describe "Layout.path" do
     @layout.rules.should == []
   end
 
+  it "should have default ArtifactMatcher" do
+    @layout.matcher.should be_instance_of ArtifactMatcher::Default
+  end
 end
