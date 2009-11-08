@@ -6,11 +6,11 @@ describe "ArtifactMatcher::Default" do
     @matcher = ArtifactMatcher::Default.new
   end
 
-  it "a:b:c:v should match *:*:*:*" do
-    @matcher.match('a:b:c:v', '*:*:*:*').should be_true
+  it "*:*:*:*should match a:b:c:v" do
+    @matcher.match('*:*:*:*', 'a:b:c:v').should be_true
   end
 
-  it "a:b:c:v should not match b:*:*:*" do
-    @matcher.match('a:b:c:v', 'b:*:*:*').should be_false
+  it "b:*:*:*should not match a:b:c:v" do
+    @matcher.match('b:*:*:*', 'a:b:c:v').should be_false
   end
 end

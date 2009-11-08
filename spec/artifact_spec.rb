@@ -7,6 +7,10 @@ describe "Artifact" do
     artifact.group.should == 'org/github'
     artifact.id.should == 'foo'
     artifact.type.should == 'gem'
-    artifact.version.should == Gem::Version.new('0.1')
+    artifact.version.should == '0.1'
+  end
+
+  it "as_hash should return a hash with all specs" do
+    artifact = Artifact.new('g:i:t:v').to_hash.should == {:group => 'g', :id => 'i', :type => 't', :version => 'v'}
   end
 end
