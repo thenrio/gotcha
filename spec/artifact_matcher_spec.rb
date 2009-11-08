@@ -13,4 +13,13 @@ describe "ArtifactMatcher::Default" do
   it "b:*:*:*should not match g:i:t:v" do
     @matcher.match('b:*:*:*', 'g:i:t:v').should be_false
   end
+
+  it "g:i:t:! should not match g:i:t:v" do
+    @matcher.match('g:i:t:!', 'g:i:t:v').should be_false
+  end
+
+  it "g:i:t:>=1 should match g:i:t:1" do
+    @matcher.match('g:i:t:>=1', 'g:i:t:1').should be_true
+  end
+
 end
