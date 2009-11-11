@@ -14,7 +14,7 @@ class ArtifactMatcher
       if (Gem::Version.correct?(raw_spec) and Gem::Version.correct?(version)) then
         return Gem::Version.create(version).send(op, Gem::Version.create(raw_spec))
       end
-      raw_spec.send(op, version)
+      version.send(op, raw_spec)
     end
 
     def match(spec, artifact)

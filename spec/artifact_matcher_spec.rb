@@ -17,12 +17,22 @@ describe "ArtifactMatcher::Default" do
   it "g:i:t:! should not match g:i:t:v" do
     @matcher.match('g:i:t:!', 'g:i:t:v').should be_false
   end
+end
 
-  it "g:i:t:>=1 should match g:i:t:1" do
-    @matcher.match('g:i:t:>=1', 'g:i:t:1').should be_true
+describe "ArtifactMatcher::Default.version_match" do
+  before do
+    @matcher = ArtifactMatcher::Default.new
+  end
+  
+  it ">=1 should 'version match' 1" do
+    @matcher.version_match('>=1', '1').should be_true
   end
 
-  it "g:i:t:<2 should match g:i:t:1" do
-    @matcher.match('g:i:t:<2', 'g:i:t:1').should be_true
+  it "<2 should 'version match' 1" do
+    @matcher.version_match('<2', '1').should be_true
+  end
+
+  it "<b should 'version match' a" do
+    @matcher.version_match('<b', 'a').should be_true
   end
 end
