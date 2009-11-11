@@ -21,4 +21,8 @@ describe "ArtifactMatcher::Default" do
   it "g:i:t:>=1 should match g:i:t:1" do
     @matcher.match('g:i:t:>=1', 'g:i:t:1').should be_true
   end
+
+  it "g:i:t:<2 should match g:i:t:1" do
+    @matcher.match('g:i:t:<2', 'g:i:t:1').should be_true
+  end
 end

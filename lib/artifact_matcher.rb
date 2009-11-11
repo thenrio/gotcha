@@ -12,7 +12,7 @@ class ArtifactMatcher
       op = (spec =~ /([#{OP.join}]+)/ ? $1 : '==')
       raw_spec = spec.gsub(/#{op}/, '')
       if (Gem::Version.correct?(raw_spec) and Gem::Version.correct?(version)) then
-        return Gem::Version.create(raw_spec).send(op, Gem::Version.create(version))
+        return Gem::Version.create(version).send(op, Gem::Version.create(raw_spec))
       end
       raw_spec.send(op, version)
     end
