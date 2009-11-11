@@ -1,7 +1,7 @@
 require 'artifact'
 
 class ArtifactMatcher
-  def match(artifact, spec)
+  def match(spec, artifact)
     false
   end
 
