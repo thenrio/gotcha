@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-
+require 'gotcha'
 describe "Gotcha" do
   before do
     @gotcha = Gotcha.new
