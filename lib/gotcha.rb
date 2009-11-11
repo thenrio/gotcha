@@ -11,8 +11,4 @@ class Gotcha
   def url=(url)
     url[-1] == '/' ? self.url=(url.chop) : @url = url
   end
-
-  def solve(artifact)
-        
-  end
 end
