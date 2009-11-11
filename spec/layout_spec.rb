@@ -18,15 +18,17 @@ end
 describe "Layout.solve" do
   before do
     @layout = Layout.new
-    @layout.get('a:*:*:*') {1}
-    @layout.get('b:*:*:*') {2}
-    @layout.get('c:*:*:*') {3}
+    @layout.get('a:*:*:<2') {"version=#{version}"}
+    @layout.get('b:*:*:*') {"group=#{group}"}
+    @layout.get('c:*:*:*') {"id=#{id}"}
+    @layout.get('a:*:*:*') {"type=#{type}"}
   end
 
-  it "should return first block that matches" do
-    @layout.solve('a:i:n:1').should == 1
-    @layout.solve('b:a:t:s').should == 2
-    @layout.solve('c:a:t:1').should == 3
+  it "should return evaluation of first block that matches" do
+    @layout.solve('a:i:n:1').should == 'version=1'
+    @layout.solve('a:i:n:2').should == 'type=n'
+    @layout.solve('b:a:t:s').should == 'group=b'
+    @layout.solve('c:a:t:s').should == 'id=a'
   end
 
   it "should return nil when no match" do

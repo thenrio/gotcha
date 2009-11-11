@@ -15,6 +15,7 @@ class Layout
 
   def solve(artifact)
     tuple = @rules.find {|t| @matcher.match(t[0], artifact)}
-    return tuple[1].call if tuple
+    artifact = Artifact.new(artifact) unless artifact.kind_of?(Artifact)
+    return artifact.instance_eval &(tuple[1]) if tuple
   end
 end
