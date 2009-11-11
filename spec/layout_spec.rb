@@ -11,7 +11,7 @@ describe "Layout" do
   end
 
   it "should have default ArtifactMatcher" do
-    @layout.matcher.should be_instance_of ArtifactMatcher::Default
+    @layout.matcher.should be_instance_of ArtifactMatcher
   end
 end
 

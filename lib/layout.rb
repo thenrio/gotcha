@@ -5,7 +5,7 @@ class Layout
   attr_reader :rules
 
   def initialize
-    @matcher = ArtifactMatcher::Default.new
+    @matcher = ArtifactMatcher.new
     @rules = []
   end
 

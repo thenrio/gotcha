@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require 'artifact_matcher'
 
-describe "ArtifactMatcher::Default" do
+describe "ArtifactMatcher" do
   before do
-    @matcher = ArtifactMatcher::Default.new
+    @matcher = ArtifactMatcher.new
   end
 
   it "*:*:*:*should match g:i:t:v" do
@@ -19,9 +19,9 @@ describe "ArtifactMatcher::Default" do
   end
 end
 
-describe "ArtifactMatcher::Default.version_match" do
+describe "ArtifactMatcher.version_match" do
   before do
-    @matcher = ArtifactMatcher::Default.new
+    @matcher = ArtifactMatcher.new
   end
   
   it ">=1 should 'version match' 1" do
