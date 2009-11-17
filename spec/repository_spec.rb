@@ -9,4 +9,10 @@ describe 'Repository' do
   it 'should have url' do
     @repository.url.should == 'http://github.org'
   end
+
+  it 'should have a default nil layout' do
+    @repository.layout.should be_nil
+    @repository.layout = 'git'
+    @repository.layout.should == 'git'
+  end
 end
