@@ -16,7 +16,7 @@ describe 'Repository' do
     @repository.layout.should == 'git'
   end
 
-  it 'get should call Transport.get and provided layout' do
+  it 'get should call Transport to get layout for artifact on base url' do
     layout = mock
     layout.expects(:solve).with(:color?).returns('blue')
     Transport.expects(:get).with('http://github.com/blue').returns(true)
