@@ -13,7 +13,13 @@ class Artifact
     end
     hash
   end
-  
+
+  def conventional_path()
+    "#{group}/#{id}/#{version}/#{id}-#{version}.#{type}"
+  end
+
+
   def Artifact.conventional_path(spec)
+    Artifact.new(spec).conventional_path
   end
 end
