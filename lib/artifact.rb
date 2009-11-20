@@ -19,7 +19,7 @@ class Artifact
   end
 
 
-  def Artifact.conventional_path(spec)
+  def self.conventional_path(spec)
     Artifact.new(spec).conventional_path
   end
 end
