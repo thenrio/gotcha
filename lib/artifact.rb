@@ -13,4 +13,7 @@ class Artifact
     end
     hash
   end
+  
+  def Artifact.conventional_path(spec)
+  end
 end

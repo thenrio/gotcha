@@ -14,3 +14,9 @@ describe "Artifact" do
     artifact = Artifact.new('g:i:t:v').to_hash.should == {:group => 'g', :id => 'i', :type => 't', :version => 'v'}
   end
 end
+
+describe "Artifact.convential_path" do
+  it "should return buildr first convention group:id:type:version" do
+    Artifact.conventional_path('g:i:t:v').should == 'g/i/v/i-v.t'
+  end
+end
