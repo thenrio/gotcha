@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require 'repository'
+require 'artifact'
+require 'stringio'
 
 describe 'Repository' do
   before do
@@ -25,5 +27,14 @@ describe 'Repository' do
     (layout = mock).expects(:solve).with(:color?).returns('blue')
     RestClient.expects(:get).with('http://github.com/blue').returns(true)
     @repository.get(:color?, layout).should be_true
+  end
+
+  it 'put should write io to local/artifact.conventional_path' do
+    spec = 'g:i:t:v'
+    f = StringIO.new(spec)
+    target_path = Artifact.conventional_path( spec)
+    FileUtils.expects(:mkdir_p).with(@repository.local+'/'+File.dirname(target_path))
+    FileUtils.expects(:cp).with(f, @repository.local+'/'+target_path)
+    @repository.put('g:i:t:v', f)
   end
 end
