@@ -16,6 +16,10 @@ describe 'Repository' do
     @repository.layout.should == 'git'
   end
 
+  it 'should have default ~/.gotcha as default local repository' do
+    @repository.local.should == "#{ENV['HOME']}/.gotcha"
+  end
+
   it 'get should call Transport to get layout for artifact on base url' do
     layout = mock
     layout.expects(:solve).with(:color?).returns('blue')
