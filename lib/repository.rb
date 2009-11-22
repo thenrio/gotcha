@@ -1,4 +1,4 @@
-require 'transport'
+require 'restclient'
 
 class Repository
   attr_reader :url
@@ -8,6 +8,6 @@ class Repository
   end
 
   def get(artifact, layout)
-    Transport.get(url + '/' + layout.solve(artifact))
+    RestClient.get(url + '/' + layout.solve(artifact))
   end
 end
