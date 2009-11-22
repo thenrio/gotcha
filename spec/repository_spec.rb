@@ -25,8 +25,8 @@ describe 'Repository' do
 
   it 'get should call Transport to get layout for artifact on base url' do
     (layout = mock).expects(:solve).with(:color?).returns('blue')
-    RestClient.expects(:get).with('http://github.com/blue').returns(true)
-    @repository.get(:color?, layout).should be_true
+    RestClient.expects(:get).with('http://github.com/blue')
+    @repository.get(:color?, layout)
   end
 
   it 'put should write io to local/artifact.conventional_path' do
