@@ -29,7 +29,7 @@ describe 'Repository' do
     @repository.local.should == Repository::DefaultLocal
   end
 
-  it 'get should call Transport to get layout for artifact on base url' do
+  it 'get should call RestClient to get layout for artifact on base url' do
     (layout = mock).expects(:solve).with(@spec).returns('blue')
     RestClient.expects(:get).with('http://github.com/blue')
     @repository.get(@spec, layout)
