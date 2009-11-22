@@ -1,11 +1,13 @@
 require 'restclient'
 
 class Repository
+  DefaultLocal = "#{ENV['HOME']}/.gotcha"
+
   attr_reader :url
   attr_accessor :layout, :local
   def initialize(url=nil)
     @url = url
-    @local = "#{ENV['HOME']}/.gotcha"
+    @local = DefaultLocal
   end
 
   def get(artifact, layout)

@@ -17,7 +17,8 @@ describe 'Repository' do
   end
 
   it 'should have default ~/.gotcha as default local repository' do
-    @repository.local.should == "#{ENV['HOME']}/.gotcha"
+    Repository::DefaultLocal.should == "#{ENV['HOME']}/.gotcha"
+    @repository.local.should == Repository::DefaultLocal
   end
 
   it 'get should call Transport to get layout for artifact on base url' do
