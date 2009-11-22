@@ -35,11 +35,11 @@ describe 'Repository' do
     @repository.get(@spec, layout)
   end
 
-  it 'put should write io to local/artifact.conventional_path' do
+  it 'put should write io to #{local}/#{artifact.conventional_path}' do
     f = StringIO.new(@spec)
     target_path = Artifact.conventional_path(@spec)
-    FileUtils.expects(:mkdir_p).with(@repository.local+'/'+File.dirname(target_path))
-    FileUtils.expects(:cp).with(f, @repository.local+'/'+target_path)
+    FileUtils.expects(:mkdir_p).with("#{@repository.local}/#{File.dirname(target_path)}")
+    FileUtils.expects(:cp).with(f, "#{@repository.local}/#{target_path}")
     @repository.put('g:i:t:v', f)
   end
 end

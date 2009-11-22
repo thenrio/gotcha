@@ -17,7 +17,7 @@ class Repository
 
   def put(artifact, file)
     artifact = Artifact.new(artifact) unless artifact.kind_of? Artifact
-    FileUtils.mkdir_p(@local+'/'+File.dirname(artifact.conventional_path))
-    FileUtils.cp(file, @local+'/'+artifact.conventional_path)
+    FileUtils.mkdir_p("#{local}/#{File.dirname(artifact.conventional_path)}")
+    FileUtils.cp(file, "#{local}/#{artifact.conventional_path}")
   end
 end
