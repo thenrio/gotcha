@@ -51,3 +51,14 @@ describe 'Repository' do
     @repository.put('g:i:t:v', f)
   end
 end
+
+describe 'Repository.url' do
+  it 'should squeeze trailing /' do
+    repository = Repository.new
+    repository.url.should be_nil
+    repository.url = 'foo/'
+    repository.url.should == 'foo'
+    repository.url = 'foo//'
+    repository.url.should == 'foo'
+  end
+end

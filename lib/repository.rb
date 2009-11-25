@@ -8,9 +8,13 @@ class Repository
   attr_accessor :layout, :local
 
   def initialize(url=nil)
-    @url = url
+    self.url = url
     @local = DefaultLocal
   end
+
+  def url=(url)
+    (url[-1] == '/' if url) ? self.url=(url.chop) : @url = url
+  end  
 
   def get(artifact)
     RestClient.get(url + '/' + layout.solve(artifact))
