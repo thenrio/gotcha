@@ -35,6 +35,14 @@ describe 'Repository' do
     @repository.get(@spec, layout)
   end
 
+  it "has 'g:i:t:v' should should be true if file local/g/i/v/i-v.t exists" do
+    @repository.local = '.'
+    File.expects(:exists?).with('./g/i/v/i-v.t').returns(false)
+    @repository.has('g:i:t:v').should be_false
+    File.expects(:exists?).with('./g/i/v/i-v.t').returns(true)
+    @repository.has('g:i:t:v').should be_true
+  end
+
   it 'put should write io to #{local}/#{artifact.conventional_path}' do
     f = StringIO.new(@spec)
     target_path = Artifact.conventional_path(@spec)

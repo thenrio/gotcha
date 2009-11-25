@@ -6,6 +6,7 @@ class Repository
 
   attr_reader :url
   attr_accessor :layout, :local
+
   def initialize(url=nil)
     @url = url
     @local = DefaultLocal
@@ -19,5 +20,10 @@ class Repository
     artifact = Artifact.new(artifact) unless artifact.kind_of? Artifact
     FileUtils.mkdir_p("#{local}/#{File.dirname(artifact.conventional_path)}")
     FileUtils.cp(file, "#{local}/#{artifact.conventional_path}")
+  end
+
+  def has(artifact)
+    artifact = Artifact.new(artifact) unless artifact.kind_of? Artifact
+    File.exists? "#{local}/#{artifact.conventional_path}"
   end
 end
