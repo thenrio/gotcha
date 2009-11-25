@@ -21,7 +21,7 @@ class Artifact
   end
 
   def conventional_path()
-    "#{group}/#{id}/#{version}/#{id}-#{version}.#{type}"
+    "#{group.gsub('.', '/')}/#{id}/#{version}/#{id}-#{version}.#{type}"
   end
 
   def self.conventional_path(spec)

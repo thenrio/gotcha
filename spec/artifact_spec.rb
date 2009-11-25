@@ -24,7 +24,7 @@ describe "Artifact" do
   end
 
   it 'conventional_path should replace dot to slash in group' do
-    Artifact.new('org.github:foo:gem:0.1').conventional_path.should == 'org/github/foo-0.1.gem'
+    Artifact.new('org.github:foo:gem:0.1').conventional_path.should == 'org/github/foo/0.1/foo-0.1.gem'
   end
 end
 
