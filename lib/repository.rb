@@ -17,13 +17,12 @@ class Repository
   end
 
   def put(artifact, file)
-    artifact = Artifact.new(artifact) unless artifact.kind_of? Artifact
+    artifact = Artifact.to_artifact(artifact)
     FileUtils.mkdir_p("#{local}/#{File.dirname(artifact.conventional_path)}")
     FileUtils.cp(file, "#{local}/#{artifact.conventional_path}")
   end
 
   def has(artifact)
-    artifact = Artifact.new(artifact) unless artifact.kind_of? Artifact
-    File.exists? "#{local}/#{artifact.conventional_path}"
+    File.exists? "#{local}/#{Artifact.to_artifact(artifact).conventional_path}"
   end
 end

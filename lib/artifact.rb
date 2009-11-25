@@ -27,4 +27,9 @@ class Artifact
   def self.conventional_path(spec)
     Artifact.new(spec).conventional_path
   end
+
+  def self.to_artifact(artifact)
+    artifact = Artifact.new(artifact) unless artifact.kind_of? Artifact
+    artifact
+  end
 end
