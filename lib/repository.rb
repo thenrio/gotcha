@@ -12,7 +12,7 @@ class Repository
     @local = DefaultLocal
   end
 
-  def get(artifact, layout)
+  def get(artifact)
     RestClient.get(url + '/' + layout.solve(artifact))
   end
 

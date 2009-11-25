@@ -29,10 +29,10 @@ describe 'Repository' do
     @repository.local.should == Repository::DefaultLocal
   end
 
-  it 'get should call RestClient to get layout for artifact on base url' do
-    (layout = mock).expects(:solve).with(@spec).returns('blue')
+  it 'get should call RestClient to get layouted artifact from base url' do
+    (@repository.layout = mock).expects(:solve).with(@spec).returns('blue')
     RestClient.expects(:get).with('http://github.com/blue')
-    @repository.get(@spec, layout)
+    @repository.get(@spec)
   end
 
   it "has 'g:i:t:v' should should be true if file local/g/i/v/i-v.t exists" do
