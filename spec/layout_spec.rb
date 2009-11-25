@@ -43,3 +43,11 @@ describe "Layout.solve" do
     @layout.solve('w:h:a:t').should be_nil
   end
 end
+
+describe 'Layout.new' do
+  it 'should yield self' do
+    actual = nil
+    expected = Layout.new {|l| actual = l}
+    actual.should == expected
+  end
+end

@@ -7,6 +7,7 @@ class Layout
   def initialize
     @matcher = ArtifactMatcher.new
     @rules = []
+    yield self if block_given?
   end
 
   def get(spec, &block)
