@@ -17,6 +17,10 @@ describe "ArtifactMatcher" do
   it "g:i:t:! should not match g:i:t:v" do
     @matcher.match('g:i:t:!', 'g:i:t:v').should be_false
   end
+
+  it "* should match g:i:t:v" do
+    @matcher.match('*', 'g:i:t:v').should be_true
+  end
 end
 
 describe "ArtifactMatcher.version_match" do

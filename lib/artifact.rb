@@ -1,9 +1,18 @@
 require 'rubygems/version'
 
 class Artifact
-  attr_reader :group, :id, :type, :classifier, :version
+  attr_accessor :group, :id, :type, :classifier, :version
 
-  def initialize(spec)
+  def initialize(spec={})
+    case spec
+      when Hash
+        return
+      else
+        initialize_from_string(spec)
+    end
+  end
+
+  def initialize_from_string(spec)
     spec_array = spec.split(':')
     if spec_array.length == 4
       @group, @id, @type, @version = spec_array
@@ -11,6 +20,7 @@ class Artifact
       @group, @id, @type, @classifier, @version = spec_array
     end
   end
+  private :initialize_from_string  
 
   def to_hash()
     hash = {}
