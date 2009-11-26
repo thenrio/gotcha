@@ -27,6 +27,14 @@ describe "Artifact" do
     artifact.version.should be_nil   
   end
 
+  it 'should build' do
+    artifact = Artifact.new
+    artifact.group.should be_nil
+    artifact.id.should be_nil
+    artifact.type.should be_nil
+    artifact.version.should be_nil
+  end
+
   it "as_hash should return a hash with all specs" do
     artifact = Artifact.new('g:i:t:v').to_hash.should == {:group => 'g', :id => 'i', :type => 't', :version => 'v'}
   end
