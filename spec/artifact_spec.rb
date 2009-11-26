@@ -28,7 +28,7 @@ describe "Artifact" do
   end
 end
 
-describe "Artifact.convential_path" do
+describe "Artifact.conventional_path" do
   it "should return 'g/i/v/i-v.t' for 'g:i:t:v'" do
     Artifact.conventional_path('g:i:t:v').should == 'g/i/v/i-v.t'
   end
