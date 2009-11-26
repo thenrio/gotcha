@@ -71,8 +71,10 @@ describe 'Repository.get' do
     @spec = 'g:i:t:v'
   end
 
+=begin
   it 'get should return file path from local if it exists' do
     File.expects(:exists?).with(@spec).returns(true)
     @repository.get(@spec).should == './require/sleep'
   end
+=end
 end
