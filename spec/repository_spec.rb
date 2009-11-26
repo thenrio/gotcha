@@ -29,7 +29,7 @@ describe 'Repository' do
     @repository.local.should == Repository::DefaultLocal
   end
 
-  it 'get should call RestClient to get layouted artifact from base url' do
+  it 'download should call RestClient to get layouted artifact from base url' do
     (@repository.layout = mock).expects(:solve).with(@spec).returns('blue')
     RestClient.expects(:get).with('http://github.com/blue')
     @repository.download(@spec)
@@ -60,5 +60,19 @@ describe 'Repository.url' do
     repository.url.should == 'foo'
     repository.url = 'foo//'
     repository.url.should == 'foo'
+  end
+end
+
+describe 'Repository.get' do
+  before do
+    @repository = Repository.new('http://github.com') do 
+      local = '.'
+    end
+    @spec = 'g:i:t:v'
+  end
+
+  it 'get should return file path from local if it exists' do
+    File.expects(:exists?).with(@spec).returns(true)
+    @repository.get(@spec).should == './require/sleep'
   end
 end
