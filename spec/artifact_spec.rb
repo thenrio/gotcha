@@ -19,6 +19,14 @@ describe "Artifact" do
     artifact.version.should == '5.9'
   end
 
+  it 'should build with one wildcard' do
+    artifact = Artifact.new('*')
+    artifact.group.should == '*'
+    artifact.id.should be_nil
+    artifact.type.should be_nil
+    artifact.version.should be_nil   
+  end
+
   it "as_hash should return a hash with all specs" do
     artifact = Artifact.new('g:i:t:v').to_hash.should == {:group => 'g', :id => 'i', :type => 't', :version => 'v'}
   end
