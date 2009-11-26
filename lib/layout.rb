@@ -18,4 +18,11 @@ class Layout
     tuple = @rules.find {|tuple| @matcher.match(tuple[0], artifact)}
     return Artifact.to_artifact(artifact).instance_eval &(tuple[1]) if tuple
   end
+
+  class Default < Layout
+    def initialize
+      super
+      get("*:*:*:*") {conventional_path}
+    end
+  end
 end

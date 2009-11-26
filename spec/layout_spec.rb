@@ -51,3 +51,18 @@ describe 'Layout.new' do
     actual.should == expected
   end
 end
+
+describe 'Layout::Default' do
+  before do
+    @layout = Layout::Default.new
+  end
+
+  def should_be_conventional_path(spec)
+    @layout.solve(spec).should == Artifact.conventional_path(spec)
+  end
+
+  it 'should return conventional path for any artifact' do
+    should_be_conventional_path 'w:h:a:t'
+    should_be_conventional_path 'w:a:z:z:a'
+  end
+end
