@@ -16,7 +16,7 @@ class Repository
     (url[-1] == '/' if url) ? self.url=(url.chop) : @url = url
   end  
 
-  def download (artifact)
+  def get(artifact)
     RestClient.get(url + '/' + layout.solve(artifact))
   end
 
