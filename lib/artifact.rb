@@ -25,7 +25,8 @@ class Artifact
   def to_hash()
     hash = {}
     self.instance_variables.each do |v|
-      hash[v.to_s.gsub('@', '').to_sym] = self.instance_eval(v)
+      value = self.instance_eval(v)
+      hash[v.to_s.gsub('@', '').to_sym] = value if value
     end
     hash
   end

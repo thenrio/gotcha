@@ -39,6 +39,10 @@ describe "Artifact" do
     artifact = Artifact.new('g:i:t:v').to_hash.should == {:group => 'g', :id => 'i', :type => 't', :version => 'v'}
   end
 
+  it "as_hash should strip specs having null value" do
+    artifact = Artifact.new('*').to_hash.should == {:group => '*'}
+  end
+
   it 'conventional_path should replace dot to slash in group' do
     Artifact.new('org.github:foo:gem:0.1').conventional_path.should == 'org/github/foo/0.1/foo-0.1.gem'
   end
