@@ -40,7 +40,7 @@ class Artifact
   end
 
   def self.to_artifact(artifact)
-    artifact = Artifact.new(artifact) unless artifact.kind_of? Artifact
+    artifact = Artifact.new(artifact) unless artifact === Artifact
     artifact
   end
 end
