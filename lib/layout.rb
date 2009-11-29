@@ -22,7 +22,7 @@ class Layout
   class Default < Layout
     def initialize
       super
-      get("*:*:*:*") {conventional_path}
+      get('*') {conventional_path}
     end
   end
 end
