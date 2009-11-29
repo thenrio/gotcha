@@ -2,21 +2,28 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require 'artifact'
 
 describe "Artifact" do
+  #
+  # use of matcher enables concise expectation and removes duplication
+  #, at the cost of relying on a CUT method : Artifact.to_hash
+  # so many spec can break when to_hash will break
+  #
+  Spec::Matchers.define :have_spec do |spec|
+    match do |artifact|
+      artifact.to_hash.should == spec
+    end
+  end
+
+
   it "should build out of a string with buildr first convention group:id:type:version" do
     artifact = Artifact.new('org/github:foo:gem:0.1')
-    artifact.group.should == 'org/github'
-    artifact.id.should == 'foo'
-    artifact.type.should == 'gem'
-    artifact.version.should == '0.1'
+    artifact.should have_spec({:group => 'org/github', :id => 'foo', :type => 'gem',
+                               :version => '0.1'})
   end
 
   it "should build out of a string with buildr second convention group:id:type:classifier:version" do
     artifact = Artifact.new('org.testng:testng:jar:jdk5:5.9')
-    artifact.group.should == 'org.testng'
-    artifact.id.should == 'testng'
-    artifact.type.should == 'jar'
-    artifact.classifier.should == 'jdk5'
-    artifact.version.should == '5.9'
+    artifact.should have_spec({:group => 'org.testng', :id => 'testng', :type => 'jar',
+                               :classifier => 'jdk5', :version => '5.9'})
   end
 
   it 'should build with one wildcard' do
@@ -29,10 +36,7 @@ describe "Artifact" do
 
   it 'should build' do
     artifact = Artifact.new
-    artifact.group.should be_nil
-    artifact.id.should be_nil
-    artifact.type.should be_nil
-    artifact.version.should be_nil
+    artifact.should have_spec({})
   end
 
   it "as_hash should return a hash with all specs" do
