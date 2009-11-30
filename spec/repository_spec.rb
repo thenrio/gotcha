@@ -65,7 +65,7 @@ end
 
 describe 'Repository::FileSystem' do
   before do
-    @repository = Repository::FileSystem.new('.')
+    @repository = Repository::Cache.new('.')
     @spec = 'g:i:t:v'
   end
 

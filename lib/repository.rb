@@ -30,7 +30,7 @@ class Repository
     File.exists? "#{local}/#{Artifact.to_artifact(artifact).conventional_path}"
   end
 
-  class FileSystem < Repository
+  class Cache < Repository
     def get(artifact)
       return nil if not File.exist?('')
     end
