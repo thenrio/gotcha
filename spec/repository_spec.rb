@@ -74,9 +74,13 @@ describe 'Repository::FileSystem' do
     @repository.get(@spec).should be_nil
   end
 
-=begin
-  it 'get should return "#{url}/#{artifact.conventional_path}" when exists' do
-    File.expects(:exists?).with("#{@repository.url}/#{@spec.conventional_path}")
+  it 'should have Layout::Default as default layout' do
+    @repository.layout.should be_kind_of(Layout::Default)
   end
-=end
+
+  it 'get should return "#{url}/#{artifact.conventional_path}" when exists' do
+    expected = "#{@repository.url}/#{Artifact.conventional_path(@spec)}"
+    File.expects(:exist?).with(expected).returns(true)
+    @repository.get(@spec).should == expected
+  end
 end
