@@ -63,18 +63,20 @@ describe 'Repository.url' do
   end
 end
 
-describe 'Repository.get' do
+describe 'Repository::FileSystem' do
   before do
-    @repository = Repository.new('http://github.com') do 
-      local = '.'
-    end
+    @repository = Repository::FileSystem.new('.')
     @spec = 'g:i:t:v'
   end
 
+  it 'get should return nil when file does not exists' do
+    File.expects(:exist?).returns(false)
+    @repository.get(@spec).should be_nil
+  end
+
 =begin
-  it 'get should return file path from local if it exists' do
-    File.expects(:exists?).with(@spec).returns(true)
-    @repository.get(@spec).should == './require/sleep'
+  it 'get should return "#{url}/#{artifact.conventional_path}" when exists' do
+    File.expects(:exists?).with("#{@repository.url}/#{@spec.conventional_path}")
   end
 =end
 end
