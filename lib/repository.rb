@@ -2,7 +2,7 @@ require 'restclient'
 require 'fileutils'
 
 class Repository
-  DefaultLocal = "#{ENV['HOME']}/.gotcha"
+  DefaultLocal = File.expand_path("#{ENV['HOME']}/.gotcha")
 
   attr_reader :url
   attr_accessor :layout, :local
