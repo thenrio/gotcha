@@ -1,5 +1,4 @@
 require 'restclient'
-require 'fileutils'
 
 class Repository
   attr_reader :url
@@ -22,7 +21,7 @@ class Repository
   end
 
   class Cache < Repository
-    DefaultUrl=File.expand_path "#{ENV['HOME']}/.gotcha"
+    DefaultUrl=File.expand_path("#{ENV['HOME']}/.gotcha")
     def initialize(url=DefaultUrl)
       super(url)
       self.layout=Layout::Default.new
