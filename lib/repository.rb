@@ -10,7 +10,7 @@ class Repository
 
   def url=(url)
     (url[-1] == '/' if url) ? self.url=(url.chop) : @url = url
-  end  
+  end
 
   def get(artifact)
     RestClient.get(url + '/' + layout.solve(artifact))
@@ -22,6 +22,7 @@ class Repository
 
   class Cache < Repository
     DefaultUrl=File.expand_path("#{ENV['HOME']}/.gotcha")
+
     def initialize(url=DefaultUrl)
       super(url)
       self.layout=Layout::Default.new
@@ -31,6 +32,12 @@ class Repository
       path = "#{url}/#{layout.solve(artifact)}"
       return nil if not File.exist?(path)
       path
+    end
+
+    def put(artifact, file)
+      artifact = Artifact.to_artifact(artifact)
+      FileUtils.mkdir_p("#{url}/#{File.dirname(artifact.conventional_path)}")
+      FileUtils.cp(file, "#{url}/#{artifact.conventional_path}")
     end
   end
 end
