@@ -74,8 +74,8 @@ describe 'Repository::FileSystem' do
     @repository.get(@spec).should be_nil
   end
 
-  it 'should have Layout::Default as default layout' do
-    @repository.layout.should be_kind_of(Layout::Default)
+  it 'default layout should be nil' do
+    @repository.layout.should be_nil
   end
 
   it 'get should return "#{url}/#{artifact.conventional_path}" when exists' do
