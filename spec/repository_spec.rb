@@ -25,8 +25,8 @@ describe 'Repository' do
     @repository.layout.should == 'git'
   end
 
-  it 'default local should be Repository::DefaultLocal' do
-    @repository.local.should == Repository::DefaultLocal
+  it 'default layout should be nil' do
+    @repository.layout.should be_nil
   end
 
   it 'download should call RestClient to get layouted artifact from base url' do
@@ -65,7 +65,7 @@ end
 
 describe 'Repository::FileSystem' do
   before do
-    @repository = Repository::Cache.new('.')
+    @repository = Repository::Cache.new
     @spec = 'g:i:t:v'
   end
 
@@ -74,8 +74,8 @@ describe 'Repository::FileSystem' do
     @repository.get(@spec).should be_nil
   end
 
-  it 'default layout should be nil' do
-    @repository.layout.should be_nil
+  it 'url should be Repository::DefaultLocal' do
+    @repository.url.should == Repository::DefaultLocal
   end
 
   it 'get should return "#{url}/#{artifact.conventional_path}" when exists' do

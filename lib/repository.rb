@@ -31,8 +31,15 @@ class Repository
   end
 
   class Cache < Repository
+    def initialize(url=Repository::DefaultLocal)
+      super(url)
+      self.layout=Layout::Default.new
+    end
+
     def get(artifact)
-      return nil if not File.exist?('')
+      file_path = "#{local}/#{layout.solve(artifact)}"
+      return nil if not File.exist?(file_path)
+      file_path
     end
   end
 end
