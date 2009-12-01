@@ -5,7 +5,7 @@ require 'stringio'
 
 describe 'Repository.DefaultLocal' do
   it 'should be ~/.gotcha' do
-    Repository::DefaultLocal.should == "#{ENV['HOME']}/.gotcha"
+    Repository::DefaultLocal.should == File.expand_path("#{ENV['HOME']}/.gotcha")
   end
 end
 
