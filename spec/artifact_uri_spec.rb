@@ -5,7 +5,7 @@ require 'stringio'
 
 describe 'Repository' do
   before do
-    @repository = Repository.new('http://github.com')
+    @repository = Artifacturi.new('http://github.com')
     @spec = 'g:i:t:v'
   end
 
@@ -37,7 +37,7 @@ end
 
 describe 'Repository.url' do
   it 'should squeeze trailing /' do
-    repository = Repository.new
+    repository = Artifacturi.new
     repository.url.should be_nil
     repository.url = 'foo/'
     repository.url.should == 'foo'
@@ -48,12 +48,12 @@ end
 
 describe 'Repository::FileSystem' do
   before do
-    @repository = Repository::Cache.new
+    @repository = Artifacturi::Cache.new
     @spec = 'g:i:t:v'
   end
 
   it 'url should be Repository::DefaultLocal' do
-    @repository.url.should == Repository::Cache::DefaultUrl
+    @repository.url.should == Artifacturi::Cache::DefaultUrl
   end
 
   it 'get should return nil when file does not exists' do

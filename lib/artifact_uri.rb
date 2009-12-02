@@ -1,6 +1,6 @@
 require 'restclient'
 
-class Repository
+class Artifacturi
   attr_reader :url
   attr_accessor :layout
 
@@ -20,7 +20,7 @@ class Repository
     fail 'not implemented, and yet, help to implement it is welcome'
   end
 
-  class Cache < Repository
+  class Cache < Artifacturi
     DefaultUrl=File.expand_path("#{ENV['HOME']}/.gotcha")
 
     def initialize(url=DefaultUrl)
