@@ -39,7 +39,7 @@ class Artifact
     Artifact.new(spec).conventional_path
   end
 
-  def self.to_artifact(artifact)
+  def self.create (artifact)
     artifact = Artifact.new(artifact) unless artifact === Artifact
     artifact
   end

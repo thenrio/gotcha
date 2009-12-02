@@ -35,7 +35,7 @@ class Repository
     end
 
     def put(artifact, file)
-      artifact = Artifact.to_artifact(artifact)
+      artifact = Artifact.create(artifact)
       FileUtils.mkdir_p("#{url}/#{File.dirname(artifact.conventional_path)}")
       FileUtils.cp(file, "#{url}/#{artifact.conventional_path}")
     end
