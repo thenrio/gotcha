@@ -23,7 +23,7 @@ describe 'Repository' do
     @repository.layout.should be_nil
   end
 
-  it 'download should call RestClient to get layouted artifact from base url' do
+  it 'get should call RestClient to get layouted artifact from base url' do
     (@repository.layout = mock).expects(:solve).with(@spec).returns('blue')
     RestClient.expects(:get).with('http://github.com/blue')
     @repository.get(@spec)
@@ -52,19 +52,18 @@ describe 'Repository::FileSystem' do
     @spec = 'g:i:t:v'
   end
 
+  it 'url should be Repository::DefaultLocal' do
+    @repository.url.should == Repository::Cache::DefaultUrl
+  end
+
   it 'get should return nil when file does not exists' do
     File.expects(:exist?).returns(false)
     @repository.get(@spec).should be_nil
   end
 
-  it 'url should be Repository::DefaultLocal' do
-    @repository.url.should == Repository::Cache::DefaultUrl
-  end
-
   it 'get should return "#{url}/#{artifact.conventional_path}" when exists' do
-    expected = "#{@repository.url}/#{Artifact.conventional_path(@spec)}"
-    File.expects(:exist?).with(expected).returns(true)
-    @repository.get(@spec).should == expected
+    File.expects(:exist?).returns(true)
+    @repository.get(@spec).should == "#{@repository.url}/#{Artifact.conventional_path(@spec)}"
   end
 
    it 'put should write io to #{url}/#{artifact.conventional_path}' do
