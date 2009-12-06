@@ -10,8 +10,8 @@ describe "Layout" do
     @layout.rules.should == []  
   end
 
-  it "should have default ArtifactMatcher" do
-    @layout.matcher.should be_instance_of ArtifactMatcher
+  it "should have default Artifact::Matcher" do
+    @layout.matcher.should be_instance_of Artifact::Matcher
   end
 end
 
@@ -20,7 +20,7 @@ describe "Layout.solve" do
     @layout = Layout.new
   end
 
-  it "should return of first block that matches" do
+  it "should return first block that matches" do
     # given the following rules
     @layout.get('a:*:*:<2') {1}
     @layout.get('b:*:*:*') {2}
@@ -58,7 +58,7 @@ describe 'Layout::Default' do
   end
 
   def should_be_conventional_path(spec)
-    @layout.solve(spec).should == Artifact.conventional_path(spec)
+    @layout.solve(spec).should == Artifact::Spec.conventional_path(spec)
   end
 
   it 'should return conventional path for any artifact' do

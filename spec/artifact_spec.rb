@@ -13,21 +13,20 @@ describe "Artifact" do
     end
   end
 
-
   it "should build out of a string with buildr first convention group:id:type:version" do
-    artifact = Artifact.new('org/github:foo:gem:0.1')
+    artifact = Artifact::Spec.new('org/github:foo:gem:0.1')
     artifact.should have_spec({:group => 'org/github', :id => 'foo', :type => 'gem',
                                :version => '0.1'})
   end
 
   it "should build out of a string with buildr second convention group:id:type:classifier:version" do
-    artifact = Artifact.new('org.testng:testng:jar:jdk5:5.9')
+    artifact = Artifact::Spec.new('org.testng:testng:jar:jdk5:5.9')
     artifact.should have_spec({:group => 'org.testng', :id => 'testng', :type => 'jar',
                                :classifier => 'jdk5', :version => '5.9'})
   end
 
   it 'should build with one wildcard' do
-    artifact = Artifact.new('*')
+    artifact = Artifact::Spec.new('*')
     artifact.group.should == '*'
     artifact.id.should be_nil
     artifact.type.should be_nil
@@ -35,25 +34,27 @@ describe "Artifact" do
   end
 
   it 'should build' do
-    artifact = Artifact.new
+    artifact = Artifact::Spec.new
     artifact.should have_spec({})
   end
 
   it "as_hash should return a hash with all specs" do
-    artifact = Artifact.new('g:i:t:v').to_hash.should == {:group => 'g', :id => 'i', :type => 't', :version => 'v'}
+    artifact = Artifact::Spec.new('g:i:t:v').to_hash.should ==
+            {:group => 'g', :id => 'i', :type => 't', :version => 'v'}
   end
 
   it "as_hash should strip specs having null value" do
-    artifact = Artifact.new('*').to_hash.should == {:group => '*'}
+    artifact = Artifact::Spec.new('*').to_hash.should ==
+            {:group => '*'}
   end
 
   it 'conventional_path should replace dot to slash in group' do
-    Artifact.new('org.github:foo:gem:0.1').conventional_path.should == 'org/github/foo/0.1/foo-0.1.gem'
+    Artifact::Spec.new('org.github:foo:gem:0.1').conventional_path.should == 'org/github/foo/0.1/foo-0.1.gem'
   end
 end
 
 describe "Artifact.conventional_path" do
   it "should return 'g/i/v/i-v.t' for 'g:i:t:v'" do
-    Artifact.conventional_path('g:i:t:v').should == 'g/i/v/i-v.t'
+    Artifact::Spec.conventional_path('g:i:t:v').should == 'g/i/v/i-v.t'
   end
 end

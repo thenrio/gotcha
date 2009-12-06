@@ -35,7 +35,7 @@ class Artifacturi
     end
 
     def put(artifact, file)
-      artifact = Artifact.create(artifact)
+      artifact = Artifact::Spec.create(artifact)
       FileUtils.mkdir_p("#{url}/#{File.dirname(artifact.conventional_path)}")
       FileUtils.cp(file, "#{url}/#{artifact.conventional_path}")
     end

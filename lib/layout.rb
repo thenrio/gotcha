@@ -5,7 +5,7 @@ class Layout
   attr_reader :rules
 
   def initialize
-    @matcher = ArtifactMatcher.new
+    @matcher = Artifact::Matcher.new
     @rules = []
     yield self if block_given?
   end
@@ -16,7 +16,7 @@ class Layout
 
   def solve(artifact)
     tuple = @rules.find {|tuple| @matcher.match(tuple[0], artifact)}
-    return Artifact.create(artifact).instance_eval &(tuple[1]) if tuple
+    return Artifact::Spec.create(artifact).instance_eval &(tuple[1]) if tuple
   end
 
   class Default < Layout

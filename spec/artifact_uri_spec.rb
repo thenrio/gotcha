@@ -63,12 +63,12 @@ describe 'Repository::FileSystem' do
 
   it 'get should return "#{url}/#{artifact.conventional_path}" when exists' do
     File.expects(:exist?).returns(true)
-    @repository.get(@spec).should == "#{@repository.url}/#{Artifact.conventional_path(@spec)}"
+    @repository.get(@spec).should == "#{@repository.url}/#{Artifact::Spec.conventional_path(@spec)}"
   end
 
    it 'put should write io to #{url}/#{artifact.conventional_path}' do
     f = StringIO.new(@spec)
-    target_path = Artifact.conventional_path(@spec)
+    target_path = Artifact::Spec.conventional_path(@spec)
     FileUtils.expects(:mkdir_p).with("#{@repository.url}/#{File.dirname(target_path)}")
     FileUtils.expects(:cp).with(f, "#{@repository.url}/#{target_path}")
     @repository.put('g:i:t:v', f)
