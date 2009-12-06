@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require 'artifact_uri'
+require 'artifact_finder'
 require 'artifact'
 require 'stringio'
 
-describe 'Repository' do
+describe 'Artifact::Finder' do
   before do
-    @repository = Artifacturi.new('http://github.com')
+    @repository = Artifact::Finder.new('http://github.com')
     @spec = 'g:i:t:v'
   end
 
@@ -35,9 +35,9 @@ describe 'Repository' do
   end
 end
 
-describe 'Repository.url' do
+describe 'Artifact::Finder.url' do
   it 'should squeeze trailing /' do
-    repository = Artifacturi.new
+    repository = Artifact::Finder.new
     repository.url.should be_nil
     repository.url = 'foo/'
     repository.url.should == 'foo'
@@ -46,14 +46,14 @@ describe 'Repository.url' do
   end
 end
 
-describe 'Repository::FileSystem' do
+describe 'Artifact::Finder::FileSystem' do
   before do
-    @repository = Artifacturi::Cache.new
+    @repository = Artifact::Finder::Cache.new
     @spec = 'g:i:t:v'
   end
 
-  it 'url should be Repository::DefaultLocal' do
-    @repository.url.should == Artifacturi::Cache::DefaultUrl
+  it 'url should be Artifact::Finder::DefaultLocal' do
+    @repository.url.should == Artifact::Finder::Cache::DefaultUrl
   end
 
   it 'get should return nil when file does not exists' do
