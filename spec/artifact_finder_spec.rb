@@ -3,35 +3,35 @@ require 'artifact_finder'
 require 'artifact'
 require 'stringio'
 
-describe 'Artifact::Finder' do
+describe 'Artifact::Finder::Rest' do
   before do
-    @repository = Artifact::Finder.new('http://github.com')
+    @finder = Artifact::Finder::Rest.new('http://github.com')
     @spec = 'g:i:t:v'
   end
 
   it 'should have url' do
-    @repository.url.should == 'http://github.com'
+    @finder.url.should == 'http://github.com'
   end
 
   it 'should have a default nil layout' do
-    @repository.layout.should be_nil
-    @repository.layout = 'git'
-    @repository.layout.should == 'git'
+    @finder.layout.should be_nil
+    @finder.layout = 'git'
+    @finder.layout.should == 'git'
   end
 
   it 'default layout should be nil' do
-    @repository.layout.should be_nil
+    @finder.layout.should be_nil
   end
 
   it 'get should call RestClient to get layouted artifact from base url' do
-    (@repository.layout = mock).expects(:solve).with(@spec).returns('blue')
+    (@finder.layout = mock).expects(:solve).with(@spec).returns('blue')
     RestClient.expects(:get).with('http://github.com/blue')
-    @repository.get(@spec)
+    @finder.get(@spec)
   end
 
   it 'put should fail' do
-    lambda{@repository.put}.should raise_error(RuntimeError,
-                                       'not implemented, and yet, help to implement it is welcome')
+    lambda{@finder.put}.should raise_error(RuntimeError,
+                                       'not implemented, and yet, help to spec it is welcome')
   end
 end
 
@@ -46,31 +46,31 @@ describe 'Artifact::Finder.url' do
   end
 end
 
-describe 'Artifact::Finder::FileSystem' do
+describe 'Artifact::Finder::Cache' do
   before do
-    @repository = Artifact::Finder::Cache.new
+    @finder = Artifact::Finder::Cache.new
     @spec = 'g:i:t:v'
   end
 
   it 'url should be Artifact::Finder::DefaultLocal' do
-    @repository.url.should == Artifact::Finder::Cache::DefaultUrl
+    @finder.url.should == Artifact::Finder::Cache::DefaultUrl
   end
 
   it 'get should return nil when file does not exists' do
     File.expects(:exist?).returns(false)
-    @repository.get(@spec).should be_nil
+    @finder.get(@spec).should be_nil
   end
 
   it 'get should return "#{url}/#{artifact.conventional_path}" when exists' do
     File.expects(:exist?).returns(true)
-    @repository.get(@spec).should == "#{@repository.url}/#{Artifact::Spec.conventional_path(@spec)}"
+    @finder.get(@spec).should == "#{@finder.url}/#{Artifact::Spec.conventional_path(@spec)}"
   end
 
    it 'put should write io to #{url}/#{artifact.conventional_path}' do
     f = StringIO.new(@spec)
     target_path = Artifact::Spec.conventional_path(@spec)
-    FileUtils.expects(:mkdir_p).with("#{@repository.url}/#{File.dirname(target_path)}")
-    FileUtils.expects(:cp).with(f, "#{@repository.url}/#{target_path}")
-    @repository.put('g:i:t:v', f)
+    FileUtils.expects(:mkdir_p).with("#{@finder.url}/#{File.dirname(target_path)}")
+    FileUtils.expects(:cp).with(f, "#{@finder.url}/#{target_path}")
+    @finder.put('g:i:t:v', f)
   end
 end

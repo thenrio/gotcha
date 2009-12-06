@@ -13,12 +13,20 @@ module Artifact
       (url[-1] == '/' if url) ? self.url=(url.chop) : @url = url
     end
 
-    def get(artifact)
-      RestClient.get(url + '/' + layout.solve(artifact))
+    def get(spec)
     end
 
-    def put(artifact=nil, file=nil)
-      fail 'not implemented, and yet, help to implement it is welcome'
+    def put(spec=nil, file=nil)
+    end
+
+    class Rest < Finder
+      def get(spec)
+        RestClient.get(url + '/' + layout.solve(spec))
+      end
+
+      def put(artifact=nil, file=nil)
+        fail 'not implemented, and yet, help to spec it is welcome'
+      end
     end
 
     class Cache < Finder
@@ -29,16 +37,16 @@ module Artifact
         self.layout=Layout::Default.new
       end
 
-      def get(artifact)
-        path = "#{url}/#{layout.solve(artifact)}"
+      def get(spec)
+        path = "#{url}/#{layout.solve(spec)}"
         return nil if not File.exist?(path)
         path
       end
 
-      def put(artifact, file)
-        artifact = Artifact::Spec.create(artifact)
-        FileUtils.mkdir_p("#{url}/#{File.dirname(artifact.conventional_path)}")
-        FileUtils.cp(file, "#{url}/#{artifact.conventional_path}")
+      def put(spec, file)
+        spec = Artifact::Spec.create(spec)
+        FileUtils.mkdir_p("#{url}/#{File.dirname(spec.conventional_path)}")
+        FileUtils.cp(file, "#{url}/#{spec.conventional_path}")
       end
     end
   end
