@@ -14,8 +14,8 @@ module Artifact
     end
 
     def match(spec, artifact)
-      spec_hash_wo_wildcard = Spec.new(spec).to_hash.delete_if {|k,v| v == '*'}
-      artifact_hash = Spec.new(artifact).to_hash
+      spec_hash_wo_wildcard = Spec.create(spec).to_hash.delete_if {|k,v| v == '*'}
+      artifact_hash = Spec.create(artifact).to_hash
       spec_hash_wo_wildcard.each do |k,v|
         if(k == :version) then
           return false unless version_match(v, artifact_hash[k])
