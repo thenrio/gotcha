@@ -37,7 +37,7 @@ module Artifact
     end
 
     def self.conventional_path(spec)
-      Spec.new(spec).conventional_path
+      Spec.create(spec).conventional_path
     end
 
     def self.create (artifact)
