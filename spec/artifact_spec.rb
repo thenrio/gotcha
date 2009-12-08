@@ -58,3 +58,15 @@ describe "Artifact.conventional_path" do
     Artifact::Spec.conventional_path('g:i:t:v').should == 'g/i/v/i-v.t'
   end
 end
+
+describe 'Artifact::Spec holds installation information' do
+  before do
+    @spec =  Artifact::Spec.new
+  end
+
+  it 'should have mutable uri' do
+    @spec.uri.should == nil
+    @spec.uri = 'foo'
+    @spec.uri.should == 'foo'
+  end
+end
