@@ -3,6 +3,17 @@ require 'artifact_finder'
 require 'artifact'
 require 'stringio'
 
+describe 'Artifact::Finder.url' do
+  it 'should squeeze trailing /' do
+    repository = Artifact::Finder.new
+    repository.url.should be_nil
+    repository.url = 'foo/'
+    repository.url.should == 'foo'
+    repository.url = 'foo//'
+    repository.url.should == 'foo'
+  end
+end
+
 describe 'Artifact::Finder::Rest' do
   before do
     @finder = Artifact::Finder::Rest.new('http://github.com')
@@ -35,16 +46,7 @@ describe 'Artifact::Finder::Rest' do
   end
 end
 
-describe 'Artifact::Finder.url' do
-  it 'should squeeze trailing /' do
-    repository = Artifact::Finder.new
-    repository.url.should be_nil
-    repository.url = 'foo/'
-    repository.url.should == 'foo'
-    repository.url = 'foo//'
-    repository.url.should == 'foo'
-  end
-end
+
 
 describe 'Artifact::Finder::Cache' do
   before do
