@@ -8,18 +8,22 @@ describe "Gotcha" do
   end
 end
 
-describe 'Gotcha.get' do
+describe 'Gotcha.get will hit second repository' do
   before do
-    @gotcha = Gotcha.new
     @spec = 'g:i:t:v'
-  end
-
-  it 'should return what first repository that can get will return' do
-    # given @gotcha has two repositories, first will fail, second will get true
-    @gotcha.repositories.first.expects(:get).with(@spec).returns(nil)
+    # given @gotcha has two repositories, and second will get true
+    @gotcha = Gotcha.new
     (second = mock).expects(:get).with(@spec).returns(true)
     @gotcha.repositories << second
-    # then
+  end
+
+  it 'should return what second gets when first does not' do
+    @gotcha.repositories.first.expects(:get).with(@spec).returns(nil)
     @gotcha.get(@spec).should == true
+  end
+
+  it 'should return first when it gets' do
+    @gotcha.repositories.first.expects(:get).with(@spec).returns('blue')
+    @gotcha.get(@spec).should == 'blue'
   end
 end
