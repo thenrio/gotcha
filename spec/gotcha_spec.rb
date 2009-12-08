@@ -3,8 +3,8 @@ require 'gotcha'
 require 'stringio'
 
 describe "Gotcha" do
-  it 'should have empty repositories' do
-    Gotcha.new.repositories.should == []
+  it 'should have Artifact::Repository::Cache as first repository' do
+    Gotcha.new.repositories.first.should be_a Artifact::Finder::Cache
   end
 end
 
@@ -16,9 +16,9 @@ describe 'Gotcha.get' do
 
   it 'should return what first repository that can get will return' do
     # given @gotcha has two repositories, first will fail, second will get true
-    (first = mock).expects(:get).with(@spec).returns(nil)
+    @gotcha.repositories.first.expects(:get).with(@spec).returns(nil)
     (second = mock).expects(:get).with(@spec).returns(true)
-    @gotcha.repositories << first << second
+    @gotcha.repositories << second
     # then
     @gotcha.get(@spec).should == true
   end

@@ -1,6 +1,9 @@
+require 'artifact'
+
 class Gotcha
-  def repositories
-    @repositories ||= []
+  attr_reader :repositories
+  def initialize
+    (@repositories = []) << Artifact::Finder::Cache.new 
   end
 
   def get(spec)
