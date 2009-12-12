@@ -41,9 +41,11 @@ module Artifact
       Spec.create(spec).conventional_path
     end
 
-    def self.create (artifact)
-      artifact = Spec.new(artifact) unless artifact === Spec
-      artifact
+    def self.create (spec, uri=nil, content=nil)
+      spec = Spec.new(spec) unless spec.kind_of? Spec
+      spec.uri = uri
+      spec.content = content
+      spec
     end
   end
 end

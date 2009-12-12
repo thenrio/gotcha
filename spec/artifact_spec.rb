@@ -33,7 +33,7 @@ describe "Artifact" do
     artifact.version.should be_nil   
   end
 
-  it 'should build' do
+  it 'should build out of nothing' do
     artifact = Artifact::Spec.new
     artifact.should have_spec({})
   end
@@ -56,6 +56,21 @@ end
 describe "Artifact.conventional_path" do
   it "should return 'g/i/v/i-v.t' for 'g:i:t:v'" do
     Artifact::Spec.conventional_path('g:i:t:v').should == 'g/i/v/i-v.t'
+  end
+  end
+
+describe "Artifact.create" do
+  it "should create and set uri and content if there" do
+    s = Artifact::Spec.create('g:i:t:v', 'git --version', '1.6.5.1.1367.gcd48')
+    s.uri.should == 'git --version'
+    s.content.should == '1.6.5.1.1367.gcd48'
+  end
+  it "should reuse spec when there" do
+    spec = Artifact::Spec.new
+    s = Artifact::Spec.create(spec, 'http://www.favorite-color?', 'blue')
+    s.should equal spec
+    s.uri.should == 'http://www.favorite-color?'
+    s.content.should == 'blue'
   end
 end
 
