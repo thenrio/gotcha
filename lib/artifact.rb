@@ -3,7 +3,7 @@ require 'rubygems/version'
 module Artifact
   class Spec
     attr_reader :group, :id, :type, :classifier, :version
-    attr_accessor :uri
+    attr_accessor :uri, :content
     
     def initialize(spec={})
       case spec

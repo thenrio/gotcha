@@ -69,4 +69,9 @@ describe 'Artifact::Spec holds installation information' do
     @spec.uri = 'foo'
     @spec.uri.should == 'foo'
   end
+  it 'should have mutable content' do
+    @spec.content.should == nil
+    @spec.content = 'foo'
+    @spec.content.should == 'foo'
+  end
 end
