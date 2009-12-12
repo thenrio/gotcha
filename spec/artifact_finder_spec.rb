@@ -68,11 +68,11 @@ describe 'Artifact::Finder::Cache' do
     @finder.get(@spec).should == "#{@finder.url}/#{Artifact::Spec.conventional_path(@spec)}"
   end
 
-   it 'put should write io to #{url}/#{artifact.conventional_path}' do
-    f = StringIO.new(@spec)
+   it 'put should write string to #{url}/#{artifact.conventional_path}' do
+    content = 'blue'
     target_path = Artifact::Spec.conventional_path(@spec)
     FileUtils.expects(:mkdir_p).with("#{@finder.url}/#{File.dirname(target_path)}")
     FileUtils.expects(:cp).with(f, "#{@finder.url}/#{target_path}")
-    @finder.put('g:i:t:v', f)
+    spec = @finder.put('g:i:t:v', content)
   end
 end
