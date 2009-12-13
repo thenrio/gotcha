@@ -4,22 +4,27 @@ require 'artifact_matcher'
 describe "Artifact::Matcher" do
   before do
     @matcher = Artifact::Matcher.new
+    @spec = 'g:i:t:v'
   end
 
   it "*:*:*:*should match g:i:t:v" do
-    @matcher.match('*:*:*:*', 'g:i:t:v').should be_true
+    @matcher.match('*:*:*:*', @spec).should be_true
   end
 
   it "b:*:*:*should not match g:i:t:v" do
-    @matcher.match('b:*:*:*', 'g:i:t:v').should be_false
+    @matcher.match('b:*:*:*', @spec).should be_false
   end
 
   it "g:i:t:! should not match g:i:t:v" do
-    @matcher.match('g:i:t:!', 'g:i:t:v').should be_false
+    @matcher.match('g:i:t:!', @spec).should be_false
   end
 
   it "* should match g:i:t:v" do
-    @matcher.match('*', 'g:i:t:v').should be_true
+    @matcher.match('*', @spec).should be_true
+  end
+
+  it 'should match against an Artifact::Spec' do
+    @matcher.match(@spec, Artifact::Spec.create(@spec)).should be_true
   end
 end
 
