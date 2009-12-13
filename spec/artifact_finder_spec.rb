@@ -42,10 +42,9 @@ describe 'Artifact::Finder::Rest' do
 
   it 'put should fail' do
     lambda{@finder.put}.should raise_error(RuntimeError,
-                                       'not implemented, and yet, help to spec it is welcome')
+                                           'not implemented, and yet, help to spec it is welcome')
   end
 end
-
 
 
 describe 'Artifact::Finder::Cache' do
@@ -68,11 +67,18 @@ describe 'Artifact::Finder::Cache' do
     @finder.get(@spec).should == "#{@finder.url}/#{Artifact::Spec.conventional_path(@spec)}"
   end
 
-   it 'put should write string to #{url}/#{artifact.conventional_path}' do
+  it 'put should syswrite content to #{url}/#{artifact.conventional_path}' do
+    # given a content and a path
     content = 'blue'
-    target_path = Artifact::Spec.conventional_path(@spec)
-    FileUtils.expects(:mkdir_p).with("#{@finder.url}/#{File.dirname(target_path)}")
-    FileUtils.expects(:cp).with(f, "#{@finder.url}/#{target_path}")
+    target_path = "#{@finder.url}/#{Artifact::Spec.conventional_path(@spec)}"
+    # ouch this is long up front expectations
+    file = mock
+    FileUtils.expects(:mkdir_p).with(File.dirname(target_path))
+    File.expects(:open).with(target_path, 'w').yields(file)
+    file.expects(:syswrite).with(content)
+    # when we put
     spec = @finder.put('g:i:t:v', content)
+    # then we should have
+    spec.uri.should == target_path
   end
 end
