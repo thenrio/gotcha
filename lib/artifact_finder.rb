@@ -43,14 +43,14 @@ module Artifact
         path
       end
 
-      def put(spec, content)
-        spec = Artifact::Spec.create(spec)
+      def put(spec)
         uri = "#{url}/#{spec.conventional_path}"
         FileUtils.mkdir_p File.dirname(uri)
         File.open(uri, 'w') do |f|
-          f.syswrite content
+          f.syswrite spec.content
         end
         spec.uri = uri
+        spec.content = nil
         spec
       end
     end

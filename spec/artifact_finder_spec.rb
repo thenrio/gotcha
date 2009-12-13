@@ -69,16 +69,17 @@ describe 'Artifact::Finder::Cache' do
 
   it 'put should syswrite content to #{url}/#{artifact.conventional_path}' do
     # given a content and a path
-    content = 'blue'
+    spec = Artifact::Spec.create('g:i:t:v', nil, 'blue')
     target_path = "#{@finder.url}/#{Artifact::Spec.conventional_path(@spec)}"
     # ouch this is long up front expectations
     file = mock
     FileUtils.expects(:mkdir_p).with(File.dirname(target_path))
     File.expects(:open).with(target_path, 'w').yields(file)
-    file.expects(:syswrite).with(content)
+    file.expects(:syswrite).with(spec.content)
     # when we put
-    spec = @finder.put('g:i:t:v', content)
+    spec = @finder.put(spec)
     # then we should have
     spec.uri.should == target_path
+    spec.content.should be_nil
   end
 end
