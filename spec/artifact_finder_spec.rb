@@ -35,7 +35,7 @@ describe 'Artifact::Finder::Rest' do
   end
 
   it 'get should call RestClient to get layouted artifact from base url' do
-    (@finder.layout = mock).expects(:solve).with(@spec).returns('blue')
+    (@finder.layout = mock).stubs(:solve).returns('blue')
     uri = 'http://github.com/blue'
     content = 'clear'
     RestClient.expects(:get).with(uri).returns(content)

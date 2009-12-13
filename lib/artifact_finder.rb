@@ -21,7 +21,10 @@ module Artifact
 
     class Rest < Finder
       def get(spec)
-        RestClient.get(url + '/' + layout.solve(spec))
+        spec = Artifact::Spec.create(spec)
+        spec.uri = url + '/' + layout.solve(spec)
+        spec.content = RestClient.get(spec.uri)
+        spec
       end
 
       def put(artifact=nil, file=nil)
