@@ -27,7 +27,10 @@ describe 'Gotcha.get' do
     @gotcha.get(@spec).should == 'blue'
   end
 
-  it 'first should put when it is not hit' do
-    
+  it 'first should put when it is not hit and return what was put' do
+    spec = Artifact::Spec.create(@spec, 'favorite/color?', 'blue')
+    @gotcha.repositories.first.expects(:get).with(@spec).returns(nil)
+    @gotcha.repositories.first.expects(:put).with(spec).returns(:green)
+    @gotcha.get(@spec).should == :green    
   end
 end
