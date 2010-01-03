@@ -1,4 +1,5 @@
 require 'restclient'
+require 'layout'
 
 module Artifact
   class Finder
