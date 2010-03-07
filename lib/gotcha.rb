@@ -14,11 +14,3 @@ class Gotcha
     end
   end   
 end
-
-  class Artifact::Finder::Rest
-        alias_method :get_without_cache_feature, :get
-        def get(spec)
-          @repositories.first.put(get_without_cache_feature(spec))
-        end
-        #alias_method :get, :get_with_cache_feature
-  end   
