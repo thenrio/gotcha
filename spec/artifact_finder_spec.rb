@@ -68,12 +68,12 @@ end
 
 describe 'Artifact::Finder::Cache' do
   before do
-    @finder = Artifact::Finder::Cache.new
+    @finder = Artifact::Finder::FileSystem.new
     @spec = 'g:i:t:v'
   end
 
   it 'url should be Artifact::Finder::DefaultLocal' do
-    @finder.url.should == Artifact::Finder::Cache::DefaultUrl
+    @finder.url.should == Artifact::Finder::FileSystem::DefaultUrl
   end
 
   it 'get should return nil when file does not exists' do

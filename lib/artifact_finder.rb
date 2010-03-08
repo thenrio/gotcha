@@ -35,7 +35,7 @@ module Artifact
       end
     end
 
-    class Cache < Finder
+    class FileSystem < Finder
       DefaultUrl=File.expand_path("#{ENV['HOME']}/.gotcha")
 
       def initialize(url=DefaultUrl)

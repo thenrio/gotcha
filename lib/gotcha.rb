@@ -4,7 +4,7 @@ require 'artifact_finder'
 class Gotcha
   attr_reader :repositories
   def initialize
-    (@repositories = []) << Artifact::Finder::Cache.new 
+    (@repositories = []) << Artifact::Finder::FileSystem.new
   end
 
   def get(spec)

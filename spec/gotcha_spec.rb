@@ -4,7 +4,7 @@ require 'stringio'
 
 describe "Gotcha" do
   it 'should have Artifact::Repository::Cache as first repository' do
-    Gotcha.new.repositories.first.should be_a Artifact::Finder::Cache
+    Gotcha.new.repositories.first.should be_a Artifact::Finder::FileSystem
   end
 end
 
