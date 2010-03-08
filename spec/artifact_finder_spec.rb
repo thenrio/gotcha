@@ -4,13 +4,15 @@ require 'artifact'
 require 'stringio'
 
 describe 'Artifact::Finder.url' do
+  before do
+    @finder = Artifact::Finder.new
+  end
   it 'should squeeze trailing /' do
-    repository = Artifact::Finder.new
-    repository.url.should be_nil
-    repository.url = 'foo/'
-    repository.url.should == 'foo'
-    repository.url = 'foo//'
-    repository.url.should == 'foo'
+    @finder.url.should be_nil
+    @finder.url = 'foo/'
+    @finder.url.should == 'foo'
+    @finder.url = 'foo//'
+    @finder.url.should == 'foo'
   end
 end
 
