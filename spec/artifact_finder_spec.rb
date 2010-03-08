@@ -73,7 +73,7 @@ describe 'Artifact::Finder::Cache' do
   end
 
   it 'url should be Artifact::Finder::DefaultLocal' do
-    @finder.url.should == Artifact::Finder::FileSystem::DefaultUrl
+    @finder.url.should == Artifact::Finder::FileSystem::DEFAULT_URL
   end
 
   it 'get should return nil when file does not exists' do

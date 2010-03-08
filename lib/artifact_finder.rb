@@ -36,9 +36,9 @@ module Artifact
     end
 
     class FileSystem < Finder
-      DefaultUrl=File.expand_path("#{ENV['HOME']}/.gotcha")
+      DEFAULT_URL=File.expand_path("#{ENV['HOME']}/.gotcha")
 
-      def initialize(url=DefaultUrl)
+      def initialize(url=DEFAULT_URL)
         super(url)
         self.layout=Layout::Default.new
       end
