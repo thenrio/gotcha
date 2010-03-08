@@ -14,6 +14,19 @@ describe 'Artifact::Finder.url' do
     @finder.url = 'foo//'
     @finder.url.should == 'foo'
   end
+
+  describe 'with_cache' do
+    before do
+      @cache = mock
+    end
+
+    it 'should add method get_without_cache to self' do
+      @finder.should_not respond_to :get_without_cache
+      @finder.with_cache @cache
+      @finder.should respond_to :get_without_cache
+      @finder.class.should_not respond_to :get_without_cache
+    end
+  end
 end
 
 describe 'Artifact::Finder::Rest' do

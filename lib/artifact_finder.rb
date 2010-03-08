@@ -4,7 +4,7 @@ require 'layout'
 module Artifact
   class Finder
     attr_reader :url
-    attr_accessor :layout
+    attr_accessor :layout, :cache
 
     def initialize(url=nil)
       self.url = url
@@ -20,8 +20,13 @@ module Artifact
     def put(spec=nil, file=nil)
     end
 
+    def with_cache(cache)
+      self.class.instance_eval do
+        alias_method :get_without_cache, :get
+      end
+    end
+
     class Rest < Finder
-      attr_accessor :cache
       def get(spec)
         spec = Artifact::Spec.create(spec)
         spec.uri = url + '/' + layout.solve(spec)
