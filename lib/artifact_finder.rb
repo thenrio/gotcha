@@ -45,8 +45,8 @@ module Artifact
 
       def get(spec)
         path = "#{url}/#{layout.solve(spec)}"
-        return nil if not File.exist?(path)
-        path
+        return path if File.exist?(path)
+        nil
       end
 
       def put(spec)
