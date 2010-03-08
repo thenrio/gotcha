@@ -26,23 +26,38 @@ describe 'Artifact::Finder::Rest' do
 
   it 'should have a default nil layout' do
     @finder.layout.should be_nil
-    @finder.layout = 'git'
-    @finder.layout.should == 'git'
   end
 
   it 'default layout should be nil' do
     @finder.layout.should be_nil
   end
 
-  it 'get should call RestClient to get layouted artifact from base url' do
-    (@finder.layout = mock).stubs(:solve).returns('blue')
-    uri = 'http://github.com/blue'
-    content = 'clear'
-    RestClient.expects(:get).with(uri).returns(content)
-    spec = @finder.get(@spec)
-    spec.uri.should == uri
-    spec.content.should == content
+  describe 'get' do
+    before do
+      (@finder.layout = mock).stubs(:solve).returns('blue')
+      @uri = 'http://github.com/blue'
+      @content = 'clear'
+      RestClient.expects(:get).with(@uri).returns(@content)
+    end
+
+    it 'should call RestClient to get layouted artifact from base url' do
+      spec = @finder.get(@spec)
+      spec.uri.should == @uri
+      spec.content.should == @content
+    end
+
+    describe 'with cache' do
+      before do
+        @finder.cache = (@cache = mock)
+        @cache.expects(:put).returns(:green)
+      end
+
+      it 'should return what is put in cache' do
+        @finder.get(@spec).should == :green
+      end
+    end
   end
+
 
   it 'put should fail' do
     lambda{@finder.put}.should raise_error(RuntimeError,

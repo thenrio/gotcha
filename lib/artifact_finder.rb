@@ -21,10 +21,12 @@ module Artifact
     end
 
     class Rest < Finder
+      attr_accessor :cache
       def get(spec)
         spec = Artifact::Spec.create(spec)
         spec.uri = url + '/' + layout.solve(spec)
         spec.content = RestClient.get(spec.uri)
+        spec = @cache.put(spec) if cache
         spec
       end
 
