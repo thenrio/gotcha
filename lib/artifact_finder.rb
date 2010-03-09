@@ -14,16 +14,21 @@ module Artifact
       (url[-1] == '/' if url) ? self.url=(url.chop) : @url = url
     end
 
-    def get(spec)
+    def get(spec=nil)
     end
 
-    def put(spec=nil, file=nil)
+    def put(spec)
     end
 
     def with_cache(cache)
-      self.class.instance_eval do
-        alias_method :get_without_cache, :get
+      self.cache=cache
+      class << self
+        alias_method :get_without_cache, :get unless self.respond_to? :get_without_cache
+        def get(spec=nil)
+          cache.put(self.get_without_cache(spec))
+        end
       end
+      self
     end
 
     class Rest < Finder
@@ -35,7 +40,7 @@ module Artifact
         spec
       end
 
-      def put(artifact=nil, file=nil)
+      def put(artifact=nil)
         fail 'not implemented, and yet, help to spec it is welcome'
       end
     end

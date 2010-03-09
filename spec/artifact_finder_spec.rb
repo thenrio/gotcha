@@ -3,28 +3,40 @@ require 'artifact_finder'
 require 'artifact'
 require 'stringio'
 
-describe 'Artifact::Finder.url' do
+describe 'Artifact::Finder' do
   before do
     @finder = Artifact::Finder.new
+    @spec = 'g:i:t:v'
   end
-  it 'should squeeze trailing /' do
-    @finder.url.should be_nil
-    @finder.url = 'foo/'
-    @finder.url.should == 'foo'
-    @finder.url = 'foo//'
-    @finder.url.should == 'foo'
+
+  describe 'url' do
+    it 'should squeeze trailing /' do
+      @finder.url.should be_nil
+      @finder.url = 'foo/'
+      @finder.url.should == 'foo'
+      @finder.url = 'foo//'
+      @finder.url.should == 'foo'
+    end
   end
 
   describe 'with_cache' do
     before do
       @cache = mock
+      @cache.stubs(:put).returns(:green)
+      
+      @finder.should_not respond_to :get_without_cache
+      @finder.get(@spec).should be_nil
+      
+      @finder.with_cache @cache
     end
 
     it 'should add method get_without_cache to self' do
-      @finder.should_not respond_to :get_without_cache
-      @finder.with_cache @cache
       @finder.should respond_to :get_without_cache
       @finder.class.should_not respond_to :get_without_cache
+    end
+
+    it 'get should return what cache puts with aliased method' do
+      @finder.get(@spec).should == :green
     end
   end
 end
