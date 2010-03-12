@@ -23,10 +23,12 @@ module Artifact
     def with_cache(cache)
       self.cache=cache
       class << self
-        alias_method :get_without_cache, :get unless self.respond_to? :get_without_cache
-        def get(spec=nil)
-          cache.put(self.get_without_cache(spec))
-        end
+        if not method_defined? :get_without_cache
+          alias_method :get_without_cache, :get
+              def get(spec=nil)
+                cache.put(self.get_without_cache(spec))
+              end
+        end        
       end
       self
     end
