@@ -27,7 +27,7 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
   spec.libs << 'spec'
   spec.spec_files = FileList['spec/**/*_spec.rb']
   spec.rcov = true
-  spec.rcov_opts = ['--no-rcovrt']
+  spec.rcov_opts = ['--no-rcovrt'] # rt coverage is broken with ruby-1.9.1-p376 and rcov-0.9.8
 end
 
 task :spec => :check_dependencies
