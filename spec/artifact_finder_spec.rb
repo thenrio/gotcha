@@ -38,6 +38,11 @@ describe 'Artifact::Finder' do
     it 'get should return what cache puts with aliased method' do
       @finder.get(@spec).should == :green
     end
+
+    it 'should be idempotent' do
+      @finder.with_cache(@cache)
+      @finder.get(@spec).should == :green
+    end
   end
 end
 
