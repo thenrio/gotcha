@@ -26,7 +26,7 @@ describe 'Artifact::Finder' do
       
       @finder.should_not respond_to :get_without_cache
       @finder.get(@spec).should be_nil
-      
+                                        
       @finder.with_cache @cache
     end
 
