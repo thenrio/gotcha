@@ -1,4 +1,4 @@
-require 'artifact_matcher'
+require 'gotcha/artifact_matcher'
 
 class Layout
   attr_accessor :matcher

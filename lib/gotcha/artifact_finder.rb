@@ -1,5 +1,5 @@
 require 'restclient'
-require 'layout'
+require 'gotcha/layout'
 
 module Artifact
   class Finder

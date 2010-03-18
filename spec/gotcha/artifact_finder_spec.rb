@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require 'artifact_finder'
-require 'artifact'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'gotcha/artifact_finder'
+require 'gotcha/artifact'
 require 'stringio'
 
 describe 'Artifact::Finder' do

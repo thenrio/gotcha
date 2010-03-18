@@ -1,5 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require 'artifact_matcher'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'gotcha/artifact_matcher'
 
 describe "Artifact::Matcher" do
   before do

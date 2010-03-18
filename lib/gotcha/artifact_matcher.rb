@@ -1,4 +1,4 @@
-require 'artifact'
+require 'gotcha/artifact'
 
 module Artifact
   class Matcher

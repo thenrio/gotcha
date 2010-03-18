@@ -1,5 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require 'artifact'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'gotcha/artifact'
 
 describe "Artifact" do
   #

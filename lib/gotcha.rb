@@ -1,5 +1,5 @@
-require 'artifact'
-require 'artifact_finder'
+require 'gotcha/artifact'
+require 'gotcha/artifact_finder'
 
 class Gotcha
   attr_reader :repositories
