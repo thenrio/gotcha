@@ -77,17 +77,6 @@ describe 'Artifact::Finder::Rest' do
       spec.uri.should == @uri
       spec.content.should == @content
     end
-
-    describe 'with cache' do
-      before do
-        @finder.cache = (@cache = mock)
-        @cache.expects(:put).returns(:green)
-      end
-
-      it 'should return what is put in cache' do
-        @finder.get(@spec).should == :green
-      end
-    end
   end
 
 

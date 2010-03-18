@@ -4,7 +4,7 @@ require 'gotcha/layout'
 module Artifact
   class Finder
     attr_reader :url
-    attr_accessor :layout, :cache
+    attr_accessor :layout
 
     def initialize(url=nil)
       self.url = url
@@ -21,15 +21,16 @@ module Artifact
     end
 
     def with_cache(cache)
-      self.cache=cache
       class << self
         if not method_defined? :get_without_cache
+          attr_accessor :cache
           alias_method :get_without_cache, :get
           def get(spec=nil)
             cache.put(self.get_without_cache(spec))
           end
         end
       end
+      self.cache=cache
       self
     end
 
@@ -38,7 +39,6 @@ module Artifact
         spec = Artifact::Spec.create(spec)
         spec.uri = url + '/' + layout.solve(spec)
         spec.content = RestClient.get(spec.uri)
-        spec = @cache.put(spec) if cache
         spec
       end
 
