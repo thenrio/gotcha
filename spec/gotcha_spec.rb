@@ -10,7 +10,7 @@ describe "Gotcha" do
     @gotcha.finders[0].should be_a Artifact::Finder::FileSystem
   end
 
-  describe 'define' do
+  describe 'define an http finder' do
     @url = 'http://github.com'
     before do
       @finder = @gotcha.define(@url)
@@ -24,10 +24,18 @@ describe "Gotcha" do
       it 'should have first finder for cache' do
         @finder.cache.should eql(@gotcha.finders.first)
       end
-      
+
       it 'finder should be last repository' do
         @gotcha.finders.last.should == @finder
       end
+    end
+  end
+
+  describe 'define' do
+    it 'should yield added finder' do
+      @gotcha.define(@url) do |finder|
+        return finder
+      end.should eql @gotcha.finders.last
     end
   end
 end
