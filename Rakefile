@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "gotcha"
-    gem.summary = %Q{TODO: one-line summary of your gem}
+    gem.summary = %Q{grabber for versatile source and layout}
     gem.description = %Q{TODO: longer description of your gem}
     gem.email = "thierry.henrio@gmail.com"
     gem.homepage = "http://github.com/thierryhenrio/gotcha"
@@ -68,4 +68,11 @@ MetricFu::Configuration.run do |config|
                                      '--no-rcovrt', # rt coverage is broken with ruby-1.9.1-p376 and rcov-0.9.8
                                      "--exclude /gems/,/Library/,spec"]}
   config.graph_engine = :bluff
+end
+
+require 'cucumber'
+require 'cucumber/rake/task'
+
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = "features --format pretty"
 end
