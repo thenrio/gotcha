@@ -15,8 +15,8 @@ class Gotcha
   end
 
   def define(url)
-    finder = Artifact::Finder::Rest.new(url)
-    finders.push finder
+    finder = Artifact::Finder::Rest.new(url).with_cache(finders.first)
+    finders.push(finder)
     finder
   end
 end
