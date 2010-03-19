@@ -17,7 +17,7 @@ describe "Gotcha" do
     end
     describe '"http://github.com"' do
       it 'should return a new rest finder with url' do
-        @finder.should be_kind_of(Artifact::Finder::Rest)
+        @finder.should be_a Artifact::Finder::Rest
         @finder.url.should == @url
       end
 
@@ -28,6 +28,12 @@ describe "Gotcha" do
       it 'finder should be last repository' do
         @gotcha.finders.last.should == @finder
       end
+    end
+  end
+
+  describe 'define a file system finder' do
+    it 'should return an Artifact::Finder::FileSystem' do
+      @gotcha.define('./tmp').should be_a Artifact::Finder::FileSystem
     end
   end
 
