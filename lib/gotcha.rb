@@ -3,6 +3,7 @@ require 'gotcha/artifact_finder'
 
 class Gotcha
   attr_reader :finders
+
   def initialize
     (@finders = []) << Artifact::Finder::FileSystem.new
   end
@@ -15,7 +16,11 @@ class Gotcha
   end
 
   def define(url)
-    finder = Artifact::Finder::Rest.new(url).with_cache(finders.first)
+    if url =~ /^http:/
+      finder = Artifact::Finder::Rest.new(url).with_cache(finders.first)
+    else
+      finder = Artifact::Finder::FileSystem.new(url)
+    end
     finders.push(finder)
     finder
   end

@@ -11,8 +11,8 @@ describe "Gotcha" do
   end
 
   describe 'define an http finder' do
-    @url = 'http://github.com'
     before do
+      @url = 'http://github.com'
       @finder = @gotcha.define(@url)
     end
     describe '"http://github.com"' do
