@@ -12,7 +12,7 @@ describe "Gotcha" do
 
   describe 'define' do
     it '"http://github.com" should add a new rest repository with cache' do
-      @gotcha.define('http://github.com')
+      @gotcha.define('http://github.com').should be_kind_of(Artifact::Finder::Rest)
     end
   end
 end
