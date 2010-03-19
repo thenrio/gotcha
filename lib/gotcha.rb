@@ -12,5 +12,9 @@ class Gotcha
       artifact = r.get(spec)
       return artifact if artifact
     end
-  end   
+  end
+
+  def define(url)
+    
+  end
 end

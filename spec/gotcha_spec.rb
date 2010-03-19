@@ -3,8 +3,17 @@ require 'gotcha'
 require 'stringio'
 
 describe "Gotcha" do
+  before do
+    @gotcha = Gotcha.new
+  end
   it 'should have Artifact::Repository::Cache as first repository' do
-    Gotcha.new.repositories.first.should be_a Artifact::Finder::FileSystem
+    @gotcha.repositories[0].should be_a Artifact::Finder::FileSystem
+  end
+
+  describe 'define' do
+    it '"http://github.com" should add a new rest repository with cache' do
+      @gotcha.define('http://github.com')
+    end
   end
 end
 
@@ -26,13 +35,4 @@ describe 'Gotcha.get' do
     @gotcha.repositories.first.expects(:get).with(@spec).returns('blue')
     @gotcha.get(@spec).should == 'blue'
   end
-
-=begin
-  it 'first should put when it is not hit and return what was put' do
-    spec = Artifact::Spec.create(@spec, 'favorite/color?', 'blue')
-    @gotcha.repositories.first.expects(:get).with(@spec).returns(nil)
-    @gotcha.repositories.first.expects(:put).with(spec).returns(:green)
-    @gotcha.get(@spec).should == :green    
-  end
-=end
 end
