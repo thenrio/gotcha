@@ -9,6 +9,10 @@ describe 'Artifact::Finder' do
     @spec = 'g:i:t:v'
   end
 
+  it 'should have default layout' do
+    @finder.layout.should be_a Layout::Default
+  end
+
   describe 'url' do
     it 'should squeeze trailing /' do
       @finder.url.should be_nil
@@ -54,14 +58,6 @@ describe 'Artifact::Finder::Rest' do
 
   it 'should have url' do
     @finder.url.should == 'http://github.com'
-  end
-
-  it 'should have a default nil layout' do
-    @finder.layout.should be_nil
-  end
-
-  it 'default layout should be nil' do
-    @finder.layout.should be_nil
   end
 
   describe 'get' do

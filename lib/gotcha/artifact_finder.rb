@@ -8,6 +8,7 @@ module Artifact
 
     def initialize(url=nil)
       self.url = url
+      self.layout = Layout::Default.new
     end
 
     def url=(url)
@@ -52,7 +53,6 @@ module Artifact
 
       def initialize(url=DEFAULT_URL)
         super(url)
-        self.layout=Layout::Default.new
       end
 
       def get(spec)
