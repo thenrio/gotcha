@@ -2,11 +2,11 @@ require 'ruby-debug'
 Given 'a Gotcha program' do
   require 'gotcha'
   @gotcha = Gotcha.new
-  @gotcha.repositories.clear
+  @gotcha.finders.clear
 end
 
 And /it has repository "(.*)"/ do |url|
-  @gotcha.repositories << url
+  @gotcha.define url
 end
 
 And /directory "(.*)" does not exist/ do |path|
