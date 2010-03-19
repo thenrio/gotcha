@@ -20,6 +20,9 @@ describe "Gotcha" do
         @finder.should be_kind_of(Artifact::Finder::Rest)
         @finder.url.should == @url
       end
+      it 'finder should be last repository' do
+        @gotcha.repositories.last.should == @finder
+      end
     end
   end
 end
