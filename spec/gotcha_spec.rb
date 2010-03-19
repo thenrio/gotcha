@@ -11,8 +11,15 @@ describe "Gotcha" do
   end
 
   describe 'define' do
-    it '"http://github.com" should add a new rest repository with cache' do
-      @gotcha.define('http://github.com').should be_kind_of(Artifact::Finder::Rest)
+    @url = 'http://github.com'
+    before do
+      @finder = @gotcha.define(@url)
+    end
+    describe '"http://github.com"' do
+      it 'should return a new rest finder with url' do
+        @finder.should be_kind_of(Artifact::Finder::Rest)
+        @finder.url.should == @url
+      end
     end
   end
 end
