@@ -1,6 +1,8 @@
+require 'ruby-debug'
 Given 'a Gotcha program' do
   require 'gotcha'
   @gotcha = Gotcha.new
+  @gotcha.repositories.clear
 end
 
 And /it has repository "(.*)"/ do |url|
