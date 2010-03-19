@@ -7,7 +7,7 @@ module Artifact
     def version_match(spec, version)
       op = (spec =~ /([#{OP.join}]+)/ ? $1 : '==')
       raw_spec = spec.gsub(/#{op}/, '')
-      if (Gem::Version.correct?(raw_spec) and Gem::Version.correct?(version)) then
+      if Gem::Version.correct?(raw_spec) and Gem::Version.correct?(version)
         return Gem::Version.create(version).send(op, Gem::Version.create(raw_spec))
       end
       version.send(op, raw_spec)
