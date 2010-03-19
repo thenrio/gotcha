@@ -15,6 +15,6 @@ class Gotcha
   end
 
   def define(url)
-    
+    Artifact::Finder::Rest.new(url)
   end
 end
