@@ -1,4 +1,5 @@
 Given 'a Gotcha program' do
+  require 'gotcha'
   @gotcha = Gotcha.new
 end
 
