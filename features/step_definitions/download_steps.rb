@@ -1,4 +1,6 @@
-require 'ruby-debug'
+require 'fileutils'
+include FileUtils::Verbose
+
 Given 'a Gotcha program' do
   require 'gotcha'
   @gotcha = Gotcha.new
@@ -10,7 +12,7 @@ And /it has repository "(.*)"/ do |url|
 end
 
 And /directory "(.*)" does not exist/ do |path|
-  Dir.exist?(path).should_not == true
+  rm_rf(path) if Dir.exist?(path)
 end
 
 When /it gets "(.*)"/ do |spec|
