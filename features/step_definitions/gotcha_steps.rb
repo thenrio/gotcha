@@ -11,7 +11,7 @@ And /it has repository "(.*)"/ do |url|
   @gotcha.define url
 end
 
-And /directory "(.*)" does not exist/ do |path|
+And /directory "(.*)" is clean/ do |path|
   rm_rf(path) if Dir.exist?(path)
 end
 
